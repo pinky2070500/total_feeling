@@ -12,7 +12,7 @@ use yii\widgets\Breadcrumbs;
 use \app\modules\assets\AppAsset;
 
 AppAsset::register($this);
-$this->title = 'GIS Cấp nước';
+$this->title = 'Total Feeling';
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

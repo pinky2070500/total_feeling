@@ -32,7 +32,7 @@ LeafletLocateAsset::register($this);
                     // Create the map
                     var map = L.map('map', {
                         defaultExtentControl: true
-                    }).setView(center, 16);
+                    }).setView(center, 19);
 
                     var baseMaps = {
                        
@@ -89,7 +89,7 @@ LeafletLocateAsset::register($this);
                         layers: 'total_feeling:orthor_4326_chenhvenh',
                         format: 'image/png',
                         transparent: true,
-                        CQL_FILTER: 'status = 1',
+                        //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
                     });
 
@@ -97,7 +97,63 @@ LeafletLocateAsset::register($this);
                         layers: 'total_feeling:dsm_4326_chenhvenh',
                         format: 'image/png',
                         transparent: true,
-                        CQL_FILTER: 'status = 1',
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsRanhChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_ranh_chenhvenh',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_ddm_c_chenhvenh',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsCaodoChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_caodo_chenhvenh',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsCocRanhDatLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_coc_ranhdat',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsCayNganHoaLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_cay_nganhoa',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsCayGaoVangLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_cay_gaovang',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsCayChuoiLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_cay_chuoi',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
                     });
 
@@ -105,7 +161,7 @@ LeafletLocateAsset::register($this);
                         layers: 'total_feeling:4326_cay_caphe',
                         format: 'image/png',
                         transparent: true,
-                        CQL_FILTER: 'status = 1',
+                        //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
                     });
 
@@ -437,20 +493,17 @@ LeafletLocateAsset::register($this);
                     // Add control layers to the map
                     var overlayMaps = {
                         // "Bản đồ nền": wmsBase,
-                        "Ảnh bay chụp": wmsNenbaychupLayer,
-                        "Ảnh DSM": wmsNenDSMLayer,
-                        // "Đồng hồ khách hàng": wmsDonghoKhLayer,
-                        // "Đồng hồ tổng": wmsDonghoTongLayer,
-                        // "Hầm kỹ thuật": wmsHamLayer,
-                        // "Ống cái Đang sử dụng": wmsOngCaiLayer,
-                        // "Ống cái Đã Hủy": wmsOngCaiDHLayer,
-                        // "Ống ngánh": wmsOngNganhLayer,
-                        // "Ống truyền dẫn": wmsOngTruyenDanLayer,
-                        // "Trạm bơm": wmsTrambomLayer,
-                        // "Trụ cứu hỏa": wmsTramCuuHoaLayer,
-                        // "Van phân phối": wmsVanPhanPhoiLayer,
-                        // "Sự cố điểm bể": wmsSucoLayer,
-                        // "DMA": wmsDMA,
+                        "Ảnh nền": wmsNenbaychupLayer,
+                        "Ảnh nền DSM": wmsNenDSMLayer,
+                        "Ranh chênh vênh" : wmsRanhChenhvenhLayer,
+                        "Chênh vênh": wmsChenhvenhLayer,
+                        "Cao độ chênh vênh": wmsCaodoChenhvenhLayer,
+                        "Cọc ranh đất": wmsCocRanhDatLayer,
+                        "Cây ngàn hoa": wmsCayNganHoaLayer,
+                        "Cây gạo vàng": wmsCayGaoVangLayer,
+                        "Cây chuối": wmsCayChuoiLayer,
+                        "Cây cà phế": wmsCayCaPheLayer,
+                        "Cây gạo vàng": wmsCayGaoVangLayer,
                         "Highlight": highlightLayer // Thêm lớp highlight vào control layers
 
                     };
@@ -463,27 +516,25 @@ LeafletLocateAsset::register($this);
                         var div = L.DomUtil.create('div', 'legend');
                         div.innerHTML += '<h4>Legend</h4>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_dongho_kh_gd"> Đồng hồ KH<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_caphe"> Cây cà phê<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_dongho_tong_gd"> Đồng hồ tổng<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_dongho_tong_gd"> Cây chuối<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_trambom"> Trạm bơm<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_trambom"> Cây gạo vàng<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_tramcuuhoa"> Trạm cứu hỏa<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_tramcuuhoa"> Cây ngàn hoa<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_vanphanphoi"> Van phân phối<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_vanphanphoi"> Van phân phối<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_hamkythuat"> Hầm kỹ thuật<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_hamkythuat"> Hầm kỹ thuật<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongcai"> Ống cái<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongcai"> Ống cái<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongnganh"> Ống ngánh<br>';
-                        div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/giadinh/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_suco"> Sự cố<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongnganh"> Ống ngánh<br>';
                         return div;
                     };
 
-                    //legendControl.addTo(map);
+                    legendControl.addTo(map);
 
                     // Tạo một nút bật/tắt legend riêng lẻ
                     var legendToggleControl = L.control({
