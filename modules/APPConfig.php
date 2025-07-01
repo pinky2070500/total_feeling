@@ -113,10 +113,10 @@ class APPConfig
 //         ],
         'giadinh' => [
             [
-                'name' => 'Đường đồng mức',
+                'name' => 'Cây cà phê',
                 'icon' => 'fa fa-list',
-                'url' => 'quanly/caphe/duong-dong-muc',
-                'key'=>'quanly.caphe/duong-dong-muc.index',
+                'url' => 'quanly/caphe/cay-ca-phe',
+                'key'=>'quanly.caphe/cay-ca-phe.index',
                 'hasChild' => false,
             ],
             // [
