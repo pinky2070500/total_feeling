@@ -211,6 +211,13 @@ class APPConfig
                 'url' => 'quanly/map/giadinh',
                 'key'=>'quanly.map.giadinh',
                 'hasChild' => false,
+            ],
+            [
+                'name' => 'Bản đồ hệ thống mạng lưới cà phê',
+                'icon' => 'fa fa-list',
+                'url' => 'quanly/map/index',
+                'key'=>'quanly.map.index',
+                'hasChild' => false,
             ]
         ],
         'danhmuc' => [
