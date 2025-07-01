@@ -2,7 +2,6 @@
 
 namespace app\modules\quanly\models\caphe;
 use app\modules\quanly\base\QuanlyBaseModel;
-
 use Yii;
 
 /**
@@ -18,6 +17,7 @@ use Yii;
  * @property string|null $updated_at
  * @property int|null $created_by
  * @property int|null $updated_by
+ * @property string|null $geojson
  */
 class CayCaPhe extends QuanlyBaseModel
 {
@@ -35,7 +35,7 @@ class CayCaPhe extends QuanlyBaseModel
     public function rules()
     {
         return [
-            [['geom', 'lat', 'long'], 'string'],
+            [['geom', 'lat', 'long', 'geojson'], 'string'],
             [['status', 'created_by', 'updated_by'], 'default', 'value' => null],
             [['status', 'created_by', 'updated_by'], 'integer'],
             [['created_at', 'updated_at'], 'safe'],
@@ -59,6 +59,7 @@ class CayCaPhe extends QuanlyBaseModel
             'updated_at' => 'Updated At',
             'created_by' => 'Created By',
             'updated_by' => 'Updated By',
+            'geojson' => 'Geojson',
         ];
     }
 }
