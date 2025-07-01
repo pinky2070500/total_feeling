@@ -19,9 +19,9 @@ class MapController extends QuanlyBaseController
         return $this->render('giadinh');
     }
 
-    public function actionIndex()
+    public function actionCaphe()
     {
-        return $this->render('index');
+        return $this->render('caphe');
     }
 
     public function actionMaptest()

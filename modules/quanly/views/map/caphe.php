@@ -19,7 +19,7 @@ LeafletLocateAsset::register($this);
 <div class="map-form">
     <div class="block block-themed">
         <div class="block-header">
-            <h2 class="block-title"><?= 'Water Network ' ?></h2>
+            <h2 class="block-title"><?= 'Bản đồ đồi cà phê ' ?></h2>
         </div>
         <div class="block-content">
             <div class="row">
@@ -32,7 +32,7 @@ LeafletLocateAsset::register($this);
                     // Create the map
                     var map = L.map('map', {
                         defaultExtentControl: true
-                    }).setView(center, 19);
+                    }).setView(center, 18);
 
                     var baseMaps = {
                        
@@ -107,15 +107,15 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
-                    var wmsChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                    var wmsDdmChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_ddm_c_chenhvenh',
                         format: 'image/png',
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCaodoChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_caodo_chenhvenh',
@@ -123,7 +123,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCocRanhDatLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_coc_ranhdat',
@@ -131,7 +131,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCayNganHoaLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_nganhoa',
@@ -139,7 +139,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCayGaoVangLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_gaovang',
@@ -147,7 +147,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCayChuoiLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_chuoi',
@@ -155,7 +155,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsCayCaPheLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_caphe',
@@ -163,7 +163,15 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
+
+                    var wmsCaySenKhacLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_cay_sen_khac',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    }).addTo(map);
 
                     
 
@@ -196,82 +204,79 @@ LeafletLocateAsset::register($this);
                     }
 
                     // Add event listener for click events on each layer
-                    // map.on('click', function(e) {
+                    map.on('click', function(e) {
                        
 
 
-                    //     const layers = map._layers;
+                        const layers = map._layers;
 
-                    //     //console.log(layers);
+                        //console.log(layers);
 
-                    //     for (const idx in layers) {
-                    //         const layer = layers[idx];
-                    //         //console.log(layer);
-                    //         if (layer.wmsParams && layer._url && layer.wmsParams.layers != "") {
-                    //             //console.log(layer._url);
-                    //             let url = getFeatureInfoUrl(layer.wmsParams.layers, e.latlng, layer._url);
+                        for (const idx in layers) {
+                            const layer = layers[idx];
+                            //console.log(layer);
+                            if (layer.wmsParams && layer._url && layer.wmsParams.layers != "") {
+                                //console.log(layer._url);
+                                let url = getFeatureInfoUrl(layer.wmsParams.layers, e.latlng, layer._url);
 
-                    //             //console.log(url);
+                                //console.log(url);
 
-                    //             let layerName = layer.wmsParams.layers;
-                    //             layerName = layerName.split(':');
-                    //             layerName = String(layerName[1]);
+                                let layerName = layer.wmsParams.layers;
+                                layerName = layerName.split(':');
+                                layerName = String(layerName[1]);
 
-                    //             //console.log(layerName);
+                                //console.log(layerName);
 
-                    //             fetch(url).
-                    //             then(function(res) {
-                    //                     return res.json()
-                    //                 })
-                    //                 .then(function(geojsonData) {
-                    //                     //console.log(geojsonData.features);
-                    //                     if (geojsonData.features && geojsonData.features.length > 0) {
-                    //                         //var popupContent = "popup" ;
+                                fetch(url).
+                                then(function(res) {
+                                        return res.json()
+                                    })
+                                    .then(function(geojsonData) {
+                                        //console.log(geojsonData.features);
+                                        if (geojsonData.features && geojsonData.features.length > 0) {
+                                            var popupContent = "" ;
 
-                    //                         //onsole.log(geojsonData);
+                                            //onsole.log(geojsonData);
 
-                    //                         var properties = geojsonData.features[0].properties;
+                                            var properties = geojsonData.features[0].properties;
 
-                    //                         // if (layer.wmsParams.layers) {
-                    //                         //     console.log("Lớp WMS đang bật:", layer.wmsParams.layers);
-                    //                         // }
+                                            // if (layer.wmsParams.layers) {
+                                            //     console.log("Lớp WMS đang bật:", layer.wmsParams.layers);
+                                            // }
 
-                    //                         if (layer.wmsParams.layers) {
-                    //                             switch (layerName) {
-                    //                                 case 'gd_data_logger':
-                    //                                     var popupContent = "<div class='popup-content'>" +
-                    //                                         "<table>" +
-                    //                                         "<tr><td><strong>Chức năng:</strong></td><td>" +
-                    //                                         properties.chucnang + "</td></tr>" +
-                    //                                         "<tr><td><strong>Vị trí:</strong></td><td>" +
-                    //                                         properties.vitri + "</td></tr>" +
-                    //                                         "<tr><td><strong>Tình trạng:</strong></td><td>" +
-                    //                                         properties.tinhtrang + "</td></tr>" +
-                    //                                         "<tr><td><strong>Ghi chú:</strong></td><td>" +
-                    //                                         properties.ghichu + "</td></tr>" +
-                    //                                         "</table>" +
-                    //                                         "</div>";
-                    //                                     break;
+                                            if (layer.wmsParams.layers) {
+                                                switch (layerName) {
+                                                    case '4326_caodo_chenhvenh':
+                                                        var popupContent = "<div class='popup-content'>" +
+                                                            "<table>" +
+                                                            "<tr><td><strong>Chiều cao:</strong></td><td>" +
+                                                            properties.text + "</td></tr>" +
+                                                            "</table>" +
+                                                            "</div>";
+                                                        break;
                                                     
-                    //                             }
-                    //                         }
+                                                }
+                                            }
 
-                    //                         var popup = L.popup()
-                    //                             .setLatLng(e.latlng)
-                    //                             .setContent(popupContent)
-                    //                             .openOn(map);
-                    //                         highlightLayer.clearLayers(); // Xóa highlight trước đó (nếu có)
-                    //                         var highlightedFeature = L.geoJSON(geojsonData.features[0]);
-                    //                         console.log(highlightedFeature);
-                    //                         highlightLayer.addLayer(highlightedFeature);
+                                            //console.log(popupContent);
+                                            if(popupContent != ''){
+                                                var popup = L.popup()
+                                                    .setLatLng(e.latlng)
+                                                    .setContent(popupContent)
+                                                    .openOn(map);
+                                                highlightLayer.clearLayers(); // Xóa highlight trước đó (nếu có)
+                                                var highlightedFeature = L.geoJSON(geojsonData.features[0]);
+                                                console.log(highlightedFeature);
+                                                highlightLayer.addLayer(highlightedFeature);
+                                            }   
+                                            
+                                        }
+                                    })
+                            }
 
-                    //                     }
-                    //                 })
-                    //         }
+                        }
 
-                    //     }
-
-                    // });
+                    });
 
                     // Add control layers to the map
                     var overlayMaps = {
@@ -279,14 +284,14 @@ LeafletLocateAsset::register($this);
                         "Ảnh nền": wmsNenbaychupLayer,
                         "Ảnh nền DSM": wmsNenDSMLayer,
                         "Ranh chênh vênh" : wmsRanhChenhvenhLayer,
-                        "Chênh vênh": wmsChenhvenhLayer,
+                        "Đường đồng mức": wmsDdmChenhvenhLayer,
                         "Cao độ chênh vênh": wmsCaodoChenhvenhLayer,
                         "Cọc ranh đất": wmsCocRanhDatLayer,
                         "Cây ngàn hoa": wmsCayNganHoaLayer,
                         "Cây gạo vàng": wmsCayGaoVangLayer,
                         "Cây chuối": wmsCayChuoiLayer,
-                        "Cây cà phế": wmsCayCaPheLayer,
-                        "Cây gạo vàng": wmsCayGaoVangLayer,
+                        "Cây cà phê": wmsCayCaPheLayer,
+                        "Cây sen khác": wmsCaySenKhacLayer,
                         "Highlight": highlightLayer // Thêm lớp highlight vào control layers
 
                     };
@@ -301,19 +306,21 @@ LeafletLocateAsset::register($this);
                         div.innerHTML +=
                             '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_caphe"> Cây cà phê<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_dongho_tong_gd"> Cây chuối<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_chuoi"> Cây chuối<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_trambom"> Cây gạo vàng<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_gaovang"> Cây gạo vàng<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_tramcuuhoa"> Cây ngàn hoa<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_nganhoa"> Cây ngàn hoa<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_vanphanphoi"> Van phân phối<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_sen_khac"> Cây sen khác<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_hamkythuat"> Hầm kỹ thuật<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_coc_ranhdat"> Cọc ranh đất<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongcai"> Ống cái<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_ddm_c_chenhvenh"> Đường đồng mức<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=giadinh:gd_ongnganh"> Ống ngánh<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_ranh_chenhvenh"> Ranh chênh vênh<br>';
+                        div.innerHTML +=
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_caodo_chenhvenh"> Cao độ chênh vênh<br>';
                         return div;
                     };
 
