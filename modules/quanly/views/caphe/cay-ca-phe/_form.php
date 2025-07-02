@@ -31,8 +31,13 @@ $this->params['breadcrumbs'][] = $model->isNewRecord ? $const['label']['create']
 
 ?>
 
-<script src="<?= Yii::$app->homeUrl?>resources/core/js/jquery.inputmask.bundle.js" type="text/javascript"></script>
-<script src="<?= Yii::$app->homeUrl?>resources/core/js/leaflet.ajax.js"></script>
+<!-- <script src="<?= Yii::$app->homeUrl?>resources/core/js/jquery.inputmask.bundle.js" type="text/javascript"></script>
+<script src="<?= Yii::$app->homeUrl?>resources/core/js/leaflet.ajax.js"></script> -->
+
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+<!-- JS -->
+<script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
 
 <?php 
    
@@ -156,6 +161,34 @@ L.control.layers(baseLayers, overLayers).addTo(map);
 map.addLayer(googleMap, true);
 var x = 10.7840441;
 var y = 106.6939804;
+
+L.control.locate({
+    position: 'topleft',
+    drawCircle: true,
+    follow: true,
+    setView: true,
+    keepCurrentZoomLevel: true,
+    markerStyle: {
+        weight: 2,
+        opacity: 0.8,
+        fillOpacity: 0.8
+    },
+    circleStyle: {
+        weight: 1,
+        clickable: false
+    },
+    icon: 'fa fa-location-arrow',
+    metric: true,
+    strings: {
+        title: "Định vị vị trí của bạn",
+        popup: "Bạn đang ở đây",
+        outsideMapBoundsMsg: "Ngoài phạm vi bản đồ"
+    },
+    locateOptions: {
+        maxZoom: 18,
+        enableHighAccuracy: true
+    }
+}).addTo(map);
 
 marker.on('dragend', function(event) {
     var marker = event.target;
