@@ -135,14 +135,14 @@ var vetinh = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', 
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 });
 
-var caynganhoa =  L.tileLayer.wms('http://geotrace.online/geoserver/total_feeling/wms', {
+var caynganhoa =  L.tileLayer.wms('https://nongdanviet.net/geoserver/total_feeling/wms', {
     layers: 'total_feeling:4326_cay_nganhoa',
     format: 'image/png',
     transparent: true,
     maxZoom: 22 // Đặt maxZoom là 22
 });
 
-var nen = L.tileLayer.wms('http://geotrace.online/geoserver/total_feeling/wms', {
+var nen = L.tileLayer.wms('https://nongdanviet.net/geoserver/total_feeling/wms', {
     layers: 'total_feeling:orthor_4326_chenhvenh',
     format: 'image/png',
     transparent: true,
