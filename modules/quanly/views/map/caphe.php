@@ -91,10 +91,18 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    });
+                    }).addTo(map);
 
                     var wmsNenDSMLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:dsm_4326_chenhvenh',
+                        format: 'image/png',
+                        transparent: true,
+                        //CQL_FILTER: 'status = 1',
+                        maxZoom: 22 // Đặt maxZoom là 22
+                    });
+
+                    var wmsHoChuaNuocLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+                        layers: 'total_feeling:4326_ho_chua_nuoc',
                         format: 'image/png',
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
@@ -115,7 +123,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    }).addTo(map);
+                    });
 
                     var wmsCaodoChenhvenhLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_caodo_chenhvenh',
@@ -123,7 +131,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    }).addTo(map);
+                    });
 
                     var wmsCocRanhDatLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_coc_ranhdat',
@@ -131,7 +139,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    }).addTo(map);
+                    });
 
                     var wmsCayNganHoaLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_nganhoa',
@@ -155,7 +163,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    }).addTo(map);
+                    });
 
                     var wmsCayCaPheLayer = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
                         layers: 'total_feeling:4326_cay_caphe',
@@ -171,7 +179,7 @@ LeafletLocateAsset::register($this);
                         transparent: true,
                         //CQL_FILTER: 'status = 1',
                         maxZoom: 22 // Đặt maxZoom là 22
-                    }).addTo(map);
+                    });
 
                     
 
@@ -254,6 +262,15 @@ LeafletLocateAsset::register($this);
                                                             "</table>" +
                                                             "</div>";
                                                         break;
+
+                                                    case '4326_ho_chua_nuoc':
+                                                        var popupContent = "<div class='popup-content'>" +
+                                                            "<table>" +
+                                                            "<tr><td><strong>Diện tích:</strong></td><td>" +
+                                                            properties.dientich + "</td></tr>" +
+                                                            "</table>" +
+                                                            "</div>";
+                                                        break;
                                                     
                                                 }
                                             }
@@ -283,15 +300,16 @@ LeafletLocateAsset::register($this);
                         // "Bản đồ nền": wmsBase,
                         "Ảnh nền": wmsNenbaychupLayer,
                         "Ảnh nền DSM": wmsNenDSMLayer,
+                        "Hồ chứa nước": wmsHoChuaNuocLayer,
                         "Ranh chênh vênh" : wmsRanhChenhvenhLayer,
                         "Đường đồng mức": wmsDdmChenhvenhLayer,
                         "Cao độ chênh vênh": wmsCaodoChenhvenhLayer,
                         "Cọc ranh đất": wmsCocRanhDatLayer,
-                        "Cây ngàn hoa": wmsCayNganHoaLayer,
-                        "Cây gạo vàng": wmsCayGaoVangLayer,
+                        "Cây ngân hoa": wmsCayNganHoaLayer,
+                        "Cây gáo vàng": wmsCayGaoVangLayer,
                         "Cây chuối": wmsCayChuoiLayer,
                         "Cây cà phê": wmsCayCaPheLayer,
-                        "Cây sen khác": wmsCaySenKhacLayer,
+                        "Cây sưa khác": wmsCaySenKhacLayer,
                         "Highlight": highlightLayer // Thêm lớp highlight vào control layers
 
                     };
