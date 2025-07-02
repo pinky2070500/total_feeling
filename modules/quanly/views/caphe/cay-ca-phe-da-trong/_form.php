@@ -175,20 +175,35 @@ var x = 10.7840441;
 var y = 106.6939804;
 
 L.control.locate({
-    position: 'topleft',
-    drawCircle: false,      
-    showPopup: false,        //Không hiện popup
-    setView: true,
-    keepCurrentZoomLevel: true,
-    showCompass: false,
-    locateOptions: {
-        enableHighAccuracy: true
-    },
+    // position: 'topleft',
+    // drawCircle: false,      
+    // showPopup: false,        //Không hiện popup
+    // setView: true,
+    // keepCurrentZoomLevel: true,
+    // showCompass: false,
+    // locateOptions: {
+    //     enableHighAccuracy: true
+    // },
    
-    markerStyle: {},         // bỏ style
-    markerClass: L.CircleMarker,
-    createMarker: function () {
-        return null;        
+    // markerStyle: {},         // bỏ style
+    // markerClass: L.CircleMarker,
+    // createMarker: function () {
+    //     return null;        
+    // }
+
+    position: 'topleft',
+    flyTo: true,
+    clickBehavior: { inView: 'stop', outOfView: 'setView', inViewNotFollowing: 'setView' },
+    icon: 'fa fa-location-arrow', // nếu bạn dùng font-awesome
+    keepCurrentZoomLevel: true,
+    drawCircle: false,
+    showPopup: false,
+    strings: {
+        title: "Định vị vị trí của bạn"
+    },
+    locateOptions: {
+        maxZoom: 18,
+        enableHighAccuracy: true
     }
 }).addTo(map);
 
