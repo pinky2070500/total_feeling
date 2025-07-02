@@ -309,7 +309,7 @@ LeafletLocateAsset::register($this);
                         "Cây gáo vàng": wmsCayGaoVangLayer,
                         "Cây chuối": wmsCayChuoiLayer,
                         "Cây cà phê": wmsCayCaPheLayer,
-                        "Cây sưa khác": wmsCaySenKhacLayer,
+                        "Cây sưa": wmsCaySenKhacLayer,
                         "Highlight": highlightLayer // Thêm lớp highlight vào control layers
 
                     };
@@ -326,11 +326,11 @@ LeafletLocateAsset::register($this);
                         div.innerHTML +=
                             '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_chuoi"> Cây chuối<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_gaovang"> Cây gạo vàng<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_gaovang"> Cây gáo vàng<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_nganhoa"> Cây ngàn hoa<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_nganhoa"> Cây ngân hoa<br>';
                         div.innerHTML +=
-                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_sen_khac"> Cây sen khác<br>';
+                            '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_cay_sen_khac"> Cây sưa<br>';
                         div.innerHTML +=
                             '<img src="http://103.9.77.141:8080/geoserver/total_feeling/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&WIDTH=20&HEIGHT=20&LAYER=total_feeling:4326_coc_ranhdat"> Cọc ranh đất<br>';
                         div.innerHTML +=

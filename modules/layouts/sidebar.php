@@ -14,6 +14,7 @@ $danhmuc = APPConfig::$CONFIG['danhmuc'];
 $map = APPConfig::$CONFIG['map'];
 // $aphu = APPConfig::$CONFIG['aphu'];
 $giadinh = APPConfig::$CONFIG['giadinh'];
+$caphe = APPConfig::$CONFIG['caphe'];
 $user_id = Yii::$app->user->id;
 //dd(Yii::$app->user->identity->is_admin);
 //dd(\hcmgis\user\services\AuthService::can($user_id,'quanly.hocsinh.index'));
@@ -74,7 +75,7 @@ $user_id = Yii::$app->user->id;
                                             <span class="nav-main-link-name">Quản lý thông tin</span>
                                         </a>
                                         <ul class="nav-main-submenu">
-                                            <?php foreach ($giadinh as $navchild) : ?>
+                                            <?php foreach ($caphe as $navchild) : ?>
                                                 <?php if (\hcmgis\user\services\AuthService::can($user_id, $navchild['key']) or Yii::$app->user->identity->is_admin == true) { ?>
                                                     <li class="nav-main-item <?= ($url == $navchild['url']) ? 'active' : '' ?>">
                                                         <a class="nav-main-link"

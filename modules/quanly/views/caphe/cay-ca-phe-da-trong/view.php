@@ -1,11 +1,12 @@
 <?php
 
 use yii\bootstrap5\Modal;
+use yii\widgets\DetailView;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use app\widgets\crud\CrudAsset;
 use app\modules\services\UtilityService;
-use kartik\detail\DetailView;
+
 use app\widgets\maps\LeafletMapAsset;
 use app\widgets\maps\plugins\leafletlocate\LeafletLocateAsset;
 LeafletLocateAsset::register($this);
@@ -22,13 +23,16 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('app', $label['index'] . ' '
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-
+<!-- CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.css" />
+<!-- JS -->
+<script src="https://unpkg.com/leaflet.locatecontrol/dist/L.Control.Locate.min.js"></script>
 
 
 <style>
 #map {
     width: 100%;
-    height: 90vh;
+    height: 70vh;
     border: 1px solid #0665d0
 }
 
@@ -38,7 +42,6 @@ $this->params['breadcrumbs'][] = $this->title;
 }
 </style>
 
-<script src="<?= Yii::$app->homeUrl?>resources/core/js/leaflet.ajax.js"></script>
 
 
 <div class="row">
@@ -57,6 +60,23 @@ $this->params['breadcrumbs'][] = $this->title;
                         
                         <div class="col-lg-12">
                             <div id="map"></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <?= DetailView::widget([
+                                'model' => $model,
+                                'attributes' => [
+                                    'macay',
+                                    [
+                                        'label' => 'Loại cà phê',
+                                        'value' => function($model){
+                                            return ($model->loaicaphe_id != null) ? $model->loaicaphe->ten : '';
+                                        }
+                                    ],
+                                    'thongtincay',
+                                ],
+                            ]) ?>
                         </div>
                     </div>
                 </div>
@@ -118,7 +138,7 @@ $this->params['breadcrumbs'][] = $this->title;
         transparent: true,
         //CQL_FILTER: 'status = 1',
         maxZoom: 22 // Đặt maxZoom là 22
-    });
+    }).addTo(map);
 
     var overLayers = {
         'Nền bay chụp': nen,
@@ -141,6 +161,22 @@ $this->params['breadcrumbs'][] = $this->title;
     }).addTo(map);
     <?php endif; ?>
 
+    L.control.locate({
+    position: 'topleft',
+        drawCircle: true,      
+        showPopup: false,        //Không hiện popup
+        setView: true,
+        keepCurrentZoomLevel: true,
+        showCompass: false,
+        locateOptions: {
+            enableHighAccuracy: true
+        },
     
+        markerStyle: {},         // bỏ style
+        markerClass: L.CircleMarker,
+        createMarker: function () {
+            return null;        
+        }
+    }).addTo(map);
     
 </script>

@@ -1,29 +1,31 @@
 <?php
 
 namespace app\modules\quanly\controllers\caphe;
-use app\modules\quanly\base\QuanlyBaseController;
 
 use Yii;
-use app\modules\quanly\models\caphe\CayCaPhe;
-use app\modules\quanly\models\caphe\CayCaPheSearch;
+use app\modules\quanly\models\caphe\CaySuaDaTrong;
+use app\modules\quanly\models\caphe\CaySuaDaTrongSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use \yii\web\Response;
 use yii\helpers\Html;
+use app\modules\quanly\base\QuanlyBaseController;
 
 /**
- * CayCaPheController implements the CRUD actions for CayCaPhe model.
+ * CaySuaDaTrongController implements the CRUD actions for CaySuaDaTrong model.
  */
-class CayCaPheController extends QuanlyBaseController
+class CaySuaDaTrongController extends QuanlyBaseController
 {
+
+    public $title = "Cây sưa đã trồng";
+
     public $const;
-    public $title = "Cây cà phê";
 
     public function init(){
         parent::init();
             $this->const = [
-            'title' => 'Cây cà phê',
+            'title' => 'Cây sưa đã trồng',
             'label' => [
                 'index' => 'Danh sách',
                 'create' => 'Thêm mới',
@@ -42,12 +44,12 @@ class CayCaPheController extends QuanlyBaseController
     }
 
     /**
-     * Lists all CayCaPhe models.
+     * Lists all CaySuaDaTrong models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new CayCaPheSearch();
+        $searchModel = new CaySuaDaTrongSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -58,19 +60,32 @@ class CayCaPheController extends QuanlyBaseController
 
 
     /**
-     * Displays a single CayCaPhe model.
+     * Displays a single CaySuaDaTrong model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        $request = Yii::$app->request;
+        if($request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return [
+                    'title'=> "CaySuaDaTrong #".$id,
+                    'content'=>$this->renderAjax('view', [
+                        'model' => $this->findModel($id),
+                    ]),
+                    'footer'=> Html::button('Đóng',['class'=>'btn btn-light float-right','data-bs-dismiss'=>"modal"]).
+                            Html::a('Cập nhật',['update','id'=>$id],['class'=>'btn btn-primary float-left','role'=>'modal-remote'])
+                ];
+        }else{
+            return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+        }
     }
 
     /**
-     * Creates a new CayCaPhe model.
+     * Creates a new CaySuaDaTrong model.
      * For ajax request will return json object
      * and for non-ajax request if creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -78,16 +93,16 @@ class CayCaPheController extends QuanlyBaseController
     public function actionCreate()
     {
         $request = Yii::$app->request;
-        $model = new CayCaPhe();
+        $model = new CaySuaDaTrong();
 
-        $table = '"4326_cay_caphe"';
+        $table = '"cay_sua_datrong"';
 
         if ($model->load($request->post()) && $model->save()) {
-            Yii::$app->db->createCommand("UPDATE".$table."SET geom = ST_GeomFromText('POINT($model->long"." "."$model->lat 0)', 4326) WHERE id = :id")
+            Yii::$app->db->createCommand("UPDATE".$table."SET geom = ST_GeomFromText('POINT($model->long"." "."$model->lat)', 4326) WHERE id = :id")
             ->bindValue(':id', $model->id)
             ->execute();
 
-            Yii::$app->db->createCommand("UPDATE".$table."SET geojson = st_asgeojson(ST_GeomFromText('POINT($model->long"." "."$model->lat 0)', 4326)) WHERE id = :id")
+            Yii::$app->db->createCommand("UPDATE".$table."SET geojson = st_asgeojson(ST_GeomFromText('POINT($model->long"." "."$model->lat)', 4326)) WHERE id = :id")
             ->bindValue(':id', $model->id)
             ->execute();
             return $this->redirect(['view', 'id' => $model->id]);
@@ -100,7 +115,7 @@ class CayCaPheController extends QuanlyBaseController
     }
 
     /**
-     * Updates an existing CayCaPhe model.
+     * Updates an existing CaySuaDaTrong model.
      * For ajax request will return json object
      * and for non-ajax request if update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
@@ -110,19 +125,18 @@ class CayCaPheController extends QuanlyBaseController
     {
         $request = Yii::$app->request;
         $model = $this->findModel($id);
-        $table = '"4326_cay_caphe"';
 
-        //$oldGeomGeojson = $model->geojson;
+        $table = '"cay_sua_datrong"';
 
         if ($model->load($request->post())) {
 
             $model->save();
 
-            Yii::$app->db->createCommand("UPDATE".$table."SET geom = ST_GeomFromText('POINT($model->long"." "."$model->lat 0)', 4326) WHERE id = :id")
+            Yii::$app->db->createCommand("UPDATE".$table."SET geom = ST_GeomFromText('POINT($model->long"." "."$model->lat)', 4326) WHERE id = :id")
             ->bindValue(':id', $model->id)
             ->execute();
 
-            Yii::$app->db->createCommand("UPDATE".$table."SET geojson = st_asgeojson(ST_GeomFromText('POINT($model->long"." "."$model->lat 0)', 4326)) WHERE id = :id")
+            Yii::$app->db->createCommand("UPDATE".$table."SET geojson = st_asgeojson(ST_GeomFromText('POINT($model->long"." "."$model->lat)', 4326)) WHERE id = :id")
             ->bindValue(':id', $model->id)
             ->execute();
 
@@ -135,7 +149,7 @@ class CayCaPheController extends QuanlyBaseController
     }
 
     /**
-     * Delete an existing CayCaPhe model.
+     * Delete an existing CaySuaDaTrong model.
      * For ajax request will return json object
      * and for non-ajax request if deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
@@ -183,15 +197,15 @@ class CayCaPheController extends QuanlyBaseController
 
     
     /**
-     * Finds the CayCaPhe model based on its primary key value.
+     * Finds the CaySuaDaTrong model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return CayCaPhe the loaded model
+     * @return CaySuaDaTrong the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = CayCaPhe::findOne($id)) !== null) {
+        if (($model = CaySuaDaTrong::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

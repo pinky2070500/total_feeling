@@ -85,14 +85,17 @@ $this->params['breadcrumbs'][] = $model->isNewRecord ? $const['label']['create']
             </div>
         </div>
 
-        <!-- <div class="row mt-3">
+        <div class="row mt-3">
             <div class="col-lg-12">
-                <?= $form->field($model, 'layer')->input('text') ?>
+                <?= $form->field($model, 'macay')->input('text') ?>
             </div>
-        </div> -->
+        </div>
 
-       
-
+        <div class="row mt-3">
+            <div class="col-lg-12">
+                <?= $form->field($model, 'thongtincay')->textArea(['rows' => 4]) ?>
+            </div>
+        </div>
 
         <div class="row mt-3">
             <div class="col-lg-12 pb-3">
@@ -104,8 +107,8 @@ $this->params['breadcrumbs'][] = $model->isNewRecord ? $const['label']['create']
 <?php ActiveForm::end(); ?>
 
 <script>
-var map = L.map('map').setView([<?= ($model->lat != null) ? $model->lat : 16.71055  ?>,
-    <?= ($model->long != null) ? $model->long : 106.63144 ?>
+var map = L.map('map').setView([<?= ($model->lat != null) ? $model->lat : 16.711630360842783  ?>,
+    <?= ($model->long != null) ? $model->long : 106.63085460662843 ?>
 ], 18);
 
 var icon = L.icon({
@@ -115,8 +118,8 @@ var icon = L.icon({
     iconAnchor: [20, 20],
     popupAnchor: [0, -48],
 });
-var marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 16.71055  ?>,
-    <?= ($model->long != null) ? $model->long : 106.63144 ?>
+var marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 16.711630360842783 ?>,
+    <?= ($model->long != null) ? $model->long : 106.63085460662843 ?>
 ], {
     'draggable': 'true',
     'icon': icon,
@@ -132,8 +135,8 @@ var vetinh = L.tileLayer('http://{s}.google.com/vt/lyrs=s,h&x={x}&y={y}&z={z}', 
     subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 });
 
-var caycaphe =  L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
-    layers: 'total_feeling:4326_cay_caphe',
+var caynganhoa =  L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms', {
+    layers: 'total_feeling:4326_cay_nganhoa',
     format: 'image/png',
     transparent: true,
     maxZoom: 22 // Đặt maxZoom là 22
@@ -145,11 +148,11 @@ var nen = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms'
     transparent: true,
     //CQL_FILTER: 'status = 1',
     maxZoom: 22 // Đặt maxZoom là 22
-});
+}).addTo(map);
 
 var overLayers = {
     'Nền bay chụp': nen,
-    'Cây cà phê': caycaphe,
+    'Cây ngân hoa': caynganhoa,
 };
 
 var baseLayers = {

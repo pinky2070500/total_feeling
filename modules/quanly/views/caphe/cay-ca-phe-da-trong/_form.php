@@ -85,14 +85,26 @@ $this->params['breadcrumbs'][] = $model->isNewRecord ? $const['label']['create']
             </div>
         </div>
 
-        <!-- <div class="row mt-3">
-            <div class="col-lg-12">
-                <?= $form->field($model, 'layer')->input('text') ?>
+        <div class="row mt-3">
+            <div class="col-lg-6">
+                <?= $form->field($model, 'macay')->input('text') ?>
             </div>
-        </div> -->
+            <div class="col-lg-6">
+                <?= $form->field($model, 'loaicaphe_id')->widget(Select2::className(), [
+                        'data' => ArrayHelper::map($loaicaphe, 'id', 'ten'),
+                        'options' => ['prompt' => 'Chọn loại cà phê'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                ]) ?>
+            </div>
+        </div>
 
-       
-
+        <div class="row mt-3">
+            <div class="col-lg-12">
+                <?= $form->field($model, 'thongtincay')->textArea(['rows' => 4]) ?>
+            </div>
+        </div>
 
         <div class="row mt-3">
             <div class="col-lg-12 pb-3">
@@ -104,8 +116,8 @@ $this->params['breadcrumbs'][] = $model->isNewRecord ? $const['label']['create']
 <?php ActiveForm::end(); ?>
 
 <script>
-var map = L.map('map').setView([<?= ($model->lat != null) ? $model->lat : 16.71055  ?>,
-    <?= ($model->long != null) ? $model->long : 106.63144 ?>
+var map = L.map('map').setView([<?= ($model->lat != null) ? $model->lat : 16.711630360842783  ?>,
+    <?= ($model->long != null) ? $model->long : 106.63085460662843 ?>
 ], 18);
 
 var icon = L.icon({
@@ -115,8 +127,8 @@ var icon = L.icon({
     iconAnchor: [20, 20],
     popupAnchor: [0, -48],
 });
-var marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 16.71055  ?>,
-    <?= ($model->long != null) ? $model->long : 106.63144 ?>
+var marker = new L.marker([<?= ($model->lat != null) ? $model->lat : 16.711630360842783 ?>,
+    <?= ($model->long != null) ? $model->long : 106.63085460662843 ?>
 ], {
     'draggable': 'true',
     'icon': icon,
@@ -145,7 +157,7 @@ var nen = L.tileLayer.wms('http://103.9.77.141:8080/geoserver/total_feeling/wms'
     transparent: true,
     //CQL_FILTER: 'status = 1',
     maxZoom: 22 // Đặt maxZoom là 22
-});
+}).addTo(map);
 
 var overLayers = {
     'Nền bay chụp': nen,
